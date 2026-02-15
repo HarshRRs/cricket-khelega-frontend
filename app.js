@@ -151,7 +151,7 @@ function renderMatchCard(match) {
 
     const detailsBtn = match.url
         ? `<div class="match-card-footer">
-               <a href="${escapeHtml(match.url)}" target="_blank" class="view-details-btn">View on Cricbuzz →</a>
+               <a href="${escapeHtml(match.url)}" target="_blank" class="view-details-btn">View Details →</a>
            </div>`
         : '';
 

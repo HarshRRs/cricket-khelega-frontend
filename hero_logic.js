@@ -31,9 +31,16 @@ function getMatchPriority(match) {
     else if (status.includes('common') || status.includes('upcoming')) score += 200;
 
     // 3. Tournaments / Keywords
-    // User requested: "women 500 good but men 1500"
     if (name.includes('world cup')) score += 500;
-    if (name.includes('women')) score += 500; // Moderate boost
+
+    // Explicit Men vs Women Priority
+    if (name.includes('women')) {
+        score += 500; // Women's Matches get +500 (as requested)
+    } else {
+        // MEN'S MATCH (Implicitly, if not "Women")
+        score += 1500; // AGGRESSIVE BOOST (+1500) so they always beat Women's matches
+    }
+
     if (name.includes('final')) score += 500;
     if (name.includes('semi-final')) score += 500;
 

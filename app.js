@@ -327,7 +327,7 @@ function renderRankingsTable() {
         } else {
             return `<tr>
                 <td><span class="rank-num ${rankClass}">${pos}</span></td>
-                <td class="rank-player">${escapeHtml(item.player || '-')}</td>
+                <td class="rank-player">${escapeHtml(item.name || item.player || '-')}</td>
                 <td class="rank-country">${escapeHtml(item.country || '-')}</td>
                 <td class="rank-rating">${item.rating || '-'}</td>
             </tr>`;

@@ -23,18 +23,21 @@ function getMatchPriority(match) {
     const type = match.matchType ? match.matchType.toLowerCase() : "";
     const status = match.status.toLowerCase();
 
-    // 1. Premium / Scraped (Highest Priority)
-    if (match.is_premium) score += 2000;
+    // 1. Premium / Scraped (Bonus)
+    // Reduced from 2000 to 500 so it doesn't always win
+    if (match.is_premium) score += 500;
 
     // 2. Status
     if (status.includes('live')) score += 1000;
     else if (status.includes('common') || status.includes('upcoming')) score += 200;
 
     // 3. Tournaments / Keywords
-    if (name.includes('world cup')) score += 500;
-    if (name.includes('final')) score += 300;
-    if (name.includes('semi-final')) score += 250;
-    if (name.includes('women')) score += 150;
+    // Massive Boosts for "New Hipes"
+    if (name.includes('world cup')) score += 1500;
+    if (name.includes('women')) score += 1500;
+    if (name.includes('final')) score += 500;
+    if (name.includes('semi-final')) score += 500;
+
     if (name.includes('ipl') || name.includes('league')) score += 50;
     if (type.includes('test') || type.includes('odi') || type.includes('t20i')) score += 100;
 

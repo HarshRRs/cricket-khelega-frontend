@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Cricket Khelega — Live Scores, Stats & Rankings</title>
     <meta name="description"
         content="Cricket Khelega — Your premium destination for live cricket scores, player statistics, ICC rankings, match schedules, and cricket news. Real-time updates from all international and domestic cricket.">
@@ -247,6 +247,32 @@
             <p class="footer-copy">© 2026 Cricket Khelega. All rights reserved. Not affiliated with ICC or BCCI.</p>
         </div>
     </footer>
+
+    <!-- ===== BOTTOM NAVIGATION — MOBILE ===== -->
+    <nav class="bottom-nav" id="bottomNav">
+        <div class="bottom-nav-inner">
+            <a href="#" class="bottom-nav-link active" data-page="live" onclick="navigate('live'); return false;">
+                <span class="bottom-nav-icon">📺</span>
+                Live
+            </a>
+            <a href="#" class="bottom-nav-link" data-page="schedule" onclick="navigate('schedule'); return false;">
+                <span class="bottom-nav-icon">📅</span>
+                Schedule
+            </a>
+            <a href="#" class="bottom-nav-link" data-page="rankings" onclick="navigate('rankings'); return false;">
+                <span class="bottom-nav-icon">🏆</span>
+                Rankings
+            </a>
+            <a href="#" class="bottom-nav-link" data-page="news" onclick="navigate('news'); return false;">
+                <span class="bottom-nav-icon">📰</span>
+                News
+            </a>
+            <a href="#" class="bottom-nav-link" data-page="players" onclick="navigate('players'); return false;">
+                <span class="bottom-nav-icon">👤</span>
+                Players
+            </a>
+        </div>
+    </nav>
 
     <script src="app.js"></script>
 </body>

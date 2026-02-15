@@ -24,8 +24,13 @@ let liveRefreshTimer = null;
 function navigate(page) {
     currentPage = page;
 
-    // Update active nav link
+    // Update active nav link (desktop)
     document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.toggle('active', link.dataset.page === page);
+    });
+
+    // Update active bottom nav link (mobile)
+    document.querySelectorAll('.bottom-nav-link').forEach(link => {
         link.classList.toggle('active', link.dataset.page === page);
     });
 
@@ -45,6 +50,12 @@ function navigate(page) {
 
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Close mobile menu if open
+    const menu = document.getElementById('mobileMenu');
+    if (menu && menu.classList.contains('open')) {
+        menu.classList.remove('open');
+    }
 }
 
 function toggleMobileMenu() {

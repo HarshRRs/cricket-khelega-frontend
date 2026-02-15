@@ -19,27 +19,30 @@ function getFeaturedMatch(matches) {
 
 function getMatchPriority(match) {
     let score = 0;
-
-    // 1. Premium / Scraped (Highest Priority - e.g. India vs Pak)
-    if (match.is_premium) score += 1000;
-
-    // 2. Status
-    const status = match.status.toLowerCase();
-    if (status.includes('live')) score += 500;
-    else if (status.includes('common') || status.includes('upcoming')) score += 200;
-
-    // 3. Match Type / Series Name
     const name = match.name.toLowerCase();
     const type = match.matchType ? match.matchType.toLowerCase() : "";
+    const status = match.status.toLowerCase();
 
-    // International
+    // 1. Premium / Scraped (Highest Priority)
+    if (match.is_premium) score += 2000;
+
+    // 2. Status
+    if (status.includes('live')) score += 1000;
+    else if (status.includes('common') || status.includes('upcoming')) score += 200;
+
+    // 3. Tournaments / Keywords
+    if (name.includes('world cup')) score += 500;
+    if (name.includes('final')) score += 300;
+    if (name.includes('semi-final')) score += 250;
+    if (name.includes('women')) score += 150;
+    if (name.includes('ipl') || name.includes('league')) score += 50;
     if (type.includes('test') || type.includes('odi') || type.includes('t20i')) score += 100;
 
-    // Big Teams (India, Aus, Eng, Pak)
-    if (name.includes('india') || name.includes('ind ')) score += 50;
-    if (name.includes('australia') || name.includes('aus ')) score += 40;
-    if (name.includes('england') || name.includes('eng ')) score += 40;
-    if (name.includes('pakistan') || name.includes('pak ')) score += 40;
+    // 4. Big Teams (India, Aus, Eng, Pak)
+    if (name.includes('india') || name.includes('ind ')) score += 100;
+    if (name.includes('australia') || name.includes('aus ')) score += 80;
+    if (name.includes('england') || name.includes('eng ')) score += 80;
+    if (name.includes('pakistan') || name.includes('pak ')) score += 80;
 
     return score;
 }
@@ -59,13 +62,18 @@ function renderHero(match) {
     // Score Formatting
     let scoreText = "";
     if (Array.isArray(match.score)) {
-        scoreText = match.score.map(s => `${s.r}/${s.w} (${s.o})`).join('  vs  ');
+        scoreText = match.score.map(s => {
+            const r = s.r || '';
+            const w = s.w ? `/${s.w}` : '';
+            const o = s.o ? ` (${s.o})` : '';
+            return `${r}${w}${o}`;
+        }).join('  vs  ');
     } else {
-        scoreText = "Match yet to start";
+        scoreText = match.status;
     }
     // Clean up empty scores
-    scoreText = scoreText.replace(/-\/- \(-\)/g, '');
-    if (scoreText.trim() === 'vs') scoreText = match.status;
+    scoreText = scoreText.replace(/- \(-\)/g, '').replace(/  vs  $/, '');
+    if (!scoreText || scoreText === 'vs') scoreText = match.status;
 
     // Status Class
     const isLive = match.status.toLowerCase().includes('live');
@@ -83,11 +91,11 @@ function renderHero(match) {
                 </div>
 
                 <div class="hero-score-badge">
-                    ${scoreText || match.status}
+                    ${scoreText}
                 </div>
 
                 <div class="${statusClass}">
-                    ${isLive ? '🔴 LIVE' : match.status} • ${match.venue}
+                    ${isLive ? '🔴 LIVE' : match.status} • ${match.venue || 'Match Center'}
                 </div>
 
                 <div class="hero-actions">
@@ -100,6 +108,3 @@ function renderHero(match) {
 
     heroContainer.classList.remove('hidden');
 }
-
-// Modify loadLiveMatches to call renderHero
-// This will be done via replace_file_content in app.js

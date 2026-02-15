@@ -96,9 +96,22 @@ async function apiFetch(endpoint) {
 // =============================================================================
 async function loadLiveMatches() {
     const container = document.getElementById('live-matches');
+    const heroContainer = document.getElementById('hero-container');
 
     try {
         const matches = await apiFetch('/live');
+
+        // Featured Match Hero Logic
+        if (matches && matches.length > 0 && typeof getFeaturedMatch === 'function') {
+            try {
+                const featured = getFeaturedMatch(matches);
+                if (featured) {
+                    renderHero(featured);
+                } else if (heroContainer) {
+                    heroContainer.classList.add('hidden');
+                }
+            } catch (e) { console.error("Hero Error:", e); }
+        }
 
         if (!matches || matches.length === 0) {
             container.innerHTML = `
@@ -107,6 +120,7 @@ async function loadLiveMatches() {
                     <h3>No Live Matches Right Now</h3>
                     <p>Check back later or view the upcoming schedule</p>
                 </div>`;
+            if (heroContainer) heroContainer.classList.add('hidden');
             return;
         }
 
@@ -149,11 +163,23 @@ function renderMatchCard(match) {
         }
     }
 
-    const detailsBtn = match.url
-        ? `<div class="match-card-footer">
-               <a href="${escapeHtml(match.url)}" target="_blank" class="view-details-btn">View Details →</a>
-           </div>`
-        : '';
+    let footerBtn = '';
+    if (match.is_premium) {
+        // Scraped Match (Cricbuzz) -> Show Commentary
+        // Use cricbuzz_id if available (for mapped matches), else match.id
+        const commId = match.cricbuzz_id || match.id;
+        footerBtn = `
+            <div class="match-card-footer">
+                <button class="btn-commentary" onclick="openCommentary('${commId}')">View Commentary 🎙️</button>
+            </div>`;
+    } else if (match.url || match.details_url) {
+        // Official Match -> Show Google Link
+        const url = match.details_url || match.url;
+        footerBtn = `
+            <div class="match-card-footer">
+                <a href="${escapeHtml(url)}" target="_blank" class="view-details-btn">View Scorecard →</a>
+            </div>`;
+    }
 
     return `
         <article class="match-card">
@@ -164,7 +190,7 @@ function renderMatchCard(match) {
             <div class="match-teams">
                 ${scoreHTML}
             </div>
-            ${detailsBtn}
+            ${footerBtn}
         </article>`;
 }
 
@@ -505,4 +531,42 @@ async function loadSidebarNews() {
 document.addEventListener('DOMContentLoaded', () => {
     navigate('live');
     loadSidebarNews();
+});
+// =============================================================================
+// COMMENTARY
+// =============================================================================
+function openCommentary(matchId) {
+    const modal = document.getElementById('commentary-modal');
+    const content = document.getElementById('commentary-content');
+
+    modal.classList.add('active');
+    content.innerHTML = '<div class="loading-spinner"></div> Loading live commentary...';
+
+    // Fetch commentary
+    apiFetch(`/commentary/${matchId}`)
+        .then(res => {
+            if (res.status === 'success' && Array.isArray(res.data)) {
+                if (res.data.length === 0) {
+                    content.innerHTML = '<div class="empty-state"><p>No commentary available yet.</p></div>';
+                    return;
+                }
+                const html = res.data.map(line => `<div class="comm-line">${escapeHtml(line)}</div>`).join('');
+                content.innerHTML = html;
+            } else {
+                content.innerHTML = '<div class="error-msg">Failed to load commentary.</div>';
+            }
+        })
+        .catch(err => {
+            content.innerHTML = '<div class="error-msg">Error loading commentary. Check connection.</div>';
+        });
+}
+
+function closeCommentary() {
+    const modal = document.getElementById('commentary-modal');
+    modal.classList.remove('active');
+}
+
+// Close modal when clicking outside
+document.getElementById('commentary-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'commentary-modal') closeCommentary();
 });

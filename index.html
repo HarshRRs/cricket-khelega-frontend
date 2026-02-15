@@ -25,6 +25,7 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="hero.css">
 
     <!-- Google AdSense — Replace ca-pub-XXXXXXXXXXXXXXXX with your publisher ID -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
@@ -93,6 +94,11 @@
                 <div class="auto-refresh">
                     <span class="pulse-dot"></span>
                     Auto-refreshing every 2 minutes
+                </div>
+
+                <!-- Featured Match Hero -->
+                <div id="hero-container" class="hero-container hidden">
+                    <!-- Injected by app.js -->
                 </div>
             </div>
 
@@ -274,6 +280,19 @@
         </div>
     </nav>
 
+    <div id="commentary-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title">Live Commentary</span>
+                <button class="modal-close" onclick="closeCommentary()">&times;</button>
+            </div>
+            <div class="modal-body" id="commentary-content">
+                <div class="loading-spinner"></div> Loading commentary...
+            </div>
+        </div>
+    </div>
+
+    <script src="hero_logic.js"></script>
     <script src="app.js"></script>
 </body>
 

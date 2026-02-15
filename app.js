@@ -465,8 +465,33 @@ function escapeHtml(str) {
 }
 
 // =============================================================================
+// SIDEBAR — TRENDING NEWS
+// =============================================================================
+async function loadSidebarNews() {
+    const container = document.getElementById('sidebar-news');
+    if (!container) return;
+
+    try {
+        const news = await apiFetch('/news');
+        if (!news || news.length === 0) {
+            container.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;">No trending news</p>';
+            return;
+        }
+
+        container.innerHTML = news.slice(0, 4).map(n => `
+            <div class="sidebar-news-item">
+                <a href="${n.url ? escapeHtml(n.url) : '#'}" target="_blank">${escapeHtml(n.title || 'Untitled')}</a>
+            </div>
+        `).join('');
+    } catch (err) {
+        container.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;">Could not load news</p>';
+    }
+}
+
+// =============================================================================
 // INITIALIZATION
 // =============================================================================
 document.addEventListener('DOMContentLoaded', () => {
     navigate('live');
+    loadSidebarNews();
 });

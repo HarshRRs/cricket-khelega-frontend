@@ -1,170 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cricket Khelega — Live Cricket Scores, Stats & News</title>
-    <meta name="description" content="Cricket Khelega - Your ultimate destination for live cricket scores, ball-by-ball updates, player statistics, ICC rankings, match schedules and latest cricket news.">
-    <meta name="keywords" content="cricket, live scores, cricket stats, ICC rankings, cricket news, IPL, T20, ODI, Test, player stats">
-    <meta name="author" content="Cricket Khelega">
-    <meta name="robots" content="index, follow">
-    
+    <title>Cricket Khelega — Live Scores, Stats & Rankings</title>
+    <meta name="description"
+        content="Cricket Khelega — Your premium destination for live cricket scores, player statistics, ICC rankings, match schedules, and cricket news. Real-time updates from all international and domestic cricket.">
+    <meta name="keywords"
+        content="cricket, live scores, cricket scores, ICC rankings, cricket news, player stats, T20, ODI, Test cricket, IPL, cricket schedule">
+
     <!-- Open Graph -->
-    <meta property="og:title" content="Cricket Khelega — Live Cricket Scores & Stats">
-    <meta property="og:description" content="Live cricket scores, player statistics, ICC rankings, and latest cricket news.">
+    <meta property="og:title" content="Cricket Khelega — Live Cricket Dashboard">
+    <meta property="og:description"
+        content="Real-time cricket scores, rankings, player statistics and news — all in one premium dashboard.">
     <meta property="og:type" content="website">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <meta property="og:url" content="https://cricketkhelega.com">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <!-- HEADER -->
-    <header class="header" id="header">
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
         <div class="header-inner">
-            <a href="#" class="logo" onclick="navigate('live')">
+            <a href="#" class="logo" onclick="navigate('live'); return false;">
                 <span class="logo-icon">🏏</span>
                 <span class="logo-text">Cricket<span class="logo-accent">Khelega</span></span>
             </a>
-            <nav class="nav" id="nav">
-                <a href="#" class="nav-link active" data-page="live" onclick="navigate('live')">
-                    <span class="nav-icon">🔴</span> Live
+
+            <nav class="nav" id="mainNav">
+                <a href="#" class="nav-link active" data-page="live" onclick="navigate('live'); return false;">
+                    <span class="nav-icon">📺</span> Live
                 </a>
-                <a href="#" class="nav-link" data-page="schedule" onclick="navigate('schedule')">
+                <a href="#" class="nav-link" data-page="schedule" onclick="navigate('schedule'); return false;">
                     <span class="nav-icon">📅</span> Schedule
                 </a>
-                <a href="#" class="nav-link" data-page="rankings" onclick="navigate('rankings')">
+                <a href="#" class="nav-link" data-page="rankings" onclick="navigate('rankings'); return false;">
                     <span class="nav-icon">🏆</span> Rankings
                 </a>
-                <a href="#" class="nav-link" data-page="news" onclick="navigate('news')">
+                <a href="#" class="nav-link" data-page="news" onclick="navigate('news'); return false;">
                     <span class="nav-icon">📰</span> News
                 </a>
-                <a href="#" class="nav-link" data-page="players" onclick="navigate('players')">
+                <a href="#" class="nav-link" data-page="players" onclick="navigate('players'); return false;">
                     <span class="nav-icon">👤</span> Players
                 </a>
             </nav>
-            <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
-                <span></span><span></span><span></span>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()"
+                aria-label="Toggle mobile menu">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
         </div>
     </header>
 
-    <!-- MOBILE MENU -->
+    <!-- ===== MOBILE MENU ===== -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#" class="mobile-nav-link" onclick="navigate('live'); toggleMobileMenu()">🔴 Live Scores</a>
-        <a href="#" class="mobile-nav-link" onclick="navigate('schedule'); toggleMobileMenu()">📅 Schedule</a>
-        <a href="#" class="mobile-nav-link" onclick="navigate('rankings'); toggleMobileMenu()">🏆 Rankings</a>
-        <a href="#" class="mobile-nav-link" onclick="navigate('news'); toggleMobileMenu()">📰 News</a>
-        <a href="#" class="mobile-nav-link" onclick="navigate('players'); toggleMobileMenu()">👤 Players</a>
+        <a href="#" class="mobile-nav-link" onclick="navigate('live'); toggleMobileMenu(); return false;">📺 Live
+            Scores</a>
+        <a href="#" class="mobile-nav-link" onclick="navigate('schedule'); toggleMobileMenu(); return false;">📅
+            Schedule</a>
+        <a href="#" class="mobile-nav-link" onclick="navigate('rankings'); toggleMobileMenu(); return false;">🏆
+            Rankings</a>
+        <a href="#" class="mobile-nav-link" onclick="navigate('news'); toggleMobileMenu(); return false;">📰 News</a>
+        <a href="#" class="mobile-nav-link" onclick="navigate('players'); toggleMobileMenu(); return false;">👤
+            Players</a>
     </div>
 
-    <!-- MAIN CONTENT -->
+    <!-- ===== MAIN CONTENT ===== -->
     <main class="main">
-        <!-- LIVE SCORES PAGE -->
+
+        <!-- ====== LIVE SCORES PAGE ====== -->
         <section class="page active" id="page-live">
             <div class="page-header">
-                <h1>Live Cricket Scores</h1>
+                <h1>Live Matches</h1>
+                <p class="page-subtitle">Follow real-time cricket action from around the globe. Instant updates,
+                    detailed analytics, and premium insights.</p>
                 <div class="auto-refresh">
                     <span class="pulse-dot"></span>
-                    <span>Auto-refreshing every 2 min</span>
+                    Auto-refreshing every 2 minutes
                 </div>
             </div>
-            <div class="cards-grid" id="live-matches">
-                <div class="loading-skeleton">
+
+            <div class="live-layout">
+                <div class="cards-grid" id="live-matches">
+                    <!-- Skeleton loading -->
                     <div class="skeleton-card"></div>
                     <div class="skeleton-card"></div>
                     <div class="skeleton-card"></div>
                 </div>
+
+                <!-- Premium CTA Sidebar -->
+                <aside class="sidebar">
+                    <div class="premium-cta">
+                        <div class="premium-badge">⚡ PRO</div>
+                        <h3>Go Premium</h3>
+                        <p>Get ball-by-ball predictions and advanced player analytics without ads.</p>
+                        <a href="#" class="premium-btn">Upgrade Now</a>
+                    </div>
+
+                    <!-- Quick News Widget -->
+                    <div class="sidebar-widget">
+                        <h3 class="sidebar-title">🔥 Trending</h3>
+                        <div id="sidebar-news">
+                            <div class="skeleton-card" style="height:60px"></div>
+                            <div class="skeleton-card" style="height:60px"></div>
+                        </div>
+                    </div>
+
+                    <!-- Ad Placeholder -->
+                    <!-- <div class="ad-spot" id="ad-sidebar">
+                        Ad Space — 300x250
+                    </div> -->
+                </aside>
             </div>
         </section>
 
-        <!-- SCHEDULE PAGE -->
+        <!-- ====== SCHEDULE PAGE ====== -->
         <section class="page" id="page-schedule">
             <div class="page-header">
                 <h1>Upcoming Matches</h1>
-                <p class="page-subtitle">International cricket schedule</p>
+                <p class="page-subtitle">Never miss a game — full schedule for international and domestic cricket</p>
             </div>
             <div class="schedule-list" id="schedule-list">
-                <div class="loading-skeleton">
-                    <div class="skeleton-card"></div>
-                    <div class="skeleton-card"></div>
-                </div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
             </div>
         </section>
 
-        <!-- RANKINGS PAGE -->
+        <!-- ====== RANKINGS PAGE ====== -->
         <section class="page" id="page-rankings">
             <div class="page-header">
                 <h1>ICC Rankings</h1>
-                <div class="filter-tabs" id="ranking-category-tabs">
-                    <button class="filter-tab active" onclick="filterRankings('batting')">🏏 Batsmen</button>
-                    <button class="filter-tab" onclick="filterRankings('bowling')">🎳 Bowlers</button>
+                <p class="page-subtitle">Official ICC player and team rankings across all formats</p>
+
+                <div id="ranking-category-tabs" class="filter-tabs">
+                    <button class="filter-tab active" onclick="filterRankings('batting')">🏏 Batting</button>
+                    <button class="filter-tab" onclick="filterRankings('bowling')">🎳 Bowling</button>
                     <button class="filter-tab" onclick="filterRankings('all-rounder')">⭐ All-Rounders</button>
-                    <button class="filter-tab" onclick="filterRankings('teams')">🏁 Teams</button>
+                    <button class="filter-tab" onclick="filterRankings('teams')">🏳️ Teams</button>
                 </div>
-                <div class="filter-tabs" id="ranking-format-tabs">
-                    <button class="filter-tab active" onclick="filterRankingFormat('TEST')">Test</button>
+
+                <div id="ranking-format-tabs" class="filter-tabs" style="margin-top:8px;">
+                    <button class="filter-tab active" onclick="filterRankingFormat('TEST')">TEST</button>
                     <button class="filter-tab" onclick="filterRankingFormat('ODI')">ODI</button>
                     <button class="filter-tab" onclick="filterRankingFormat('T20')">T20</button>
                 </div>
             </div>
+
             <div class="rankings-table-wrap" id="rankings-table">
-                <div class="loading-skeleton">
-                    <div class="skeleton-card"></div>
-                </div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card" style="height:200px"></div>
             </div>
         </section>
 
-        <!-- NEWS PAGE -->
+        <!-- ====== NEWS PAGE ====== -->
         <section class="page" id="page-news">
             <div class="page-header">
-                <h1>Latest Cricket News</h1>
+                <h1>Cricket News</h1>
+                <p class="page-subtitle">Latest headlines, press conferences, and match previews</p>
             </div>
             <div class="news-grid" id="news-list">
-                <div class="loading-skeleton">
-                    <div class="skeleton-card"></div>
-                    <div class="skeleton-card"></div>
+                <div class="skeleton-card" style="height:200px"></div>
+                <div class="skeleton-card" style="height:200px"></div>
+                <div class="skeleton-card" style="height:200px"></div>
+            </div>
+        </section>
+
+        <!-- ====== PLAYERS PAGE ====== -->
+        <section class="page" id="page-players">
+            <div class="page-header">
+                <h1>Player Search</h1>
+                <p class="page-subtitle">Look up career statistics, ICC rankings, and performance data for any cricketer
+                </p>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" id="player-search-input" placeholder="Search for any cricketer... (e.g. Virat Kohli)"
+                    onkeydown="if(event.key==='Enter') searchPlayer()">
+                <button class="search-btn" onclick="searchPlayer()">🔍 Search</button>
+            </div>
+
+            <div class="player-result" id="player-result">
+                <div class="empty-state">
+                    <div class="empty-state-icon">👤</div>
+                    <h3>Search for a Player</h3>
+                    <p>Enter a cricketer's name to view detailed career statistics and rankings</p>
                 </div>
             </div>
         </section>
 
-        <!-- PLAYERS PAGE -->
-        <section class="page" id="page-players">
-            <div class="page-header">
-                <h1>Player Statistics</h1>
-                <p class="page-subtitle">Search any cricket player</p>
-            </div>
-            <div class="search-bar">
-                <input type="text" id="player-search-input" placeholder="Search player name (e.g. Virat Kohli)" 
-                       onkeydown="if(event.key==='Enter') searchPlayer()">
-                <button class="search-btn" onclick="searchPlayer()">Search</button>
-            </div>
-            <div id="player-result" class="player-result"></div>
-        </section>
+        <!-- Ad Placeholder (bottom banner) -->
+        <!-- <div class="ad-spot ad-banner" id="ad-footer-banner">
+            Ad Space — 728x90 Leaderboard
+        </div> -->
+
     </main>
 
-    <!-- FOOTER -->
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="footer-inner">
-            <div class="footer-brand">
-                <span class="logo-icon">🏏</span>
-                <span>Cricket<span class="logo-accent">Khelega</span></span>
-            </div>
-            <p class="footer-text">Live cricket scores, player stats, ICC rankings & latest news</p>
+            <div class="footer-brand">🏏 Cricket<span style="color:var(--accent)">Khelega</span></div>
+            <p class="footer-text">Your premium destination for live cricket scores, analytics, and insights.</p>
             <div class="footer-links">
-                <a href="#" onclick="navigate('live')">Live Scores</a>
-                <a href="#" onclick="navigate('schedule')">Schedule</a>
-                <a href="#" onclick="navigate('rankings')">Rankings</a>
-                <a href="#" onclick="navigate('news')">News</a>
+                <a href="#">About</a>
+                <a href="#">Advertise</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
             </div>
-            <p class="footer-copy">&copy; 2026 CricketKhelega. All rights reserved.</p>
+            <p class="footer-copy">© 2025 Cricket Khelega. All rights reserved. Not affiliated with ICC or BCCI.</p>
         </div>
     </footer>
 
-    <!-- AD PLACEHOLDER (for future Google AdSense) -->
-    <!-- <div class="ad-spot" id="ad-sidebar">Ad Space</div> -->
-
     <script src="app.js"></script>
 </body>
+
 </html>

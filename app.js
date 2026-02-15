@@ -6,7 +6,7 @@
 // Change this to your Railway backend URL
 const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:5000'
-    : ''; // Production: set your Railway URL here, e.g., 'https://your-app.up.railway.app'
+    : 'https://cricket-mcp-server-main-production.up.railway.app';
 
 // Auto-refresh interval for live scores (ms)
 const LIVE_REFRESH_INTERVAL = 120000; // 2 minutes
